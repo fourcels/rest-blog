@@ -153,8 +153,8 @@ func getUserID(c echo.Context) uint {
 }
 
 func setupPaginate[T any](c echo.Context, p paginate.Pagination, out *[]T, query ...func(db *gorm.DB) *gorm.DB) error {
-	var count int64
-	if err := paginate.Paginate(models.DB, p, &count, out, query...); err != nil {
+	count, err := paginate.Paginate(models.DB, p, out, query...)
+	if err != nil {
 		return err
 	}
 	c.Response().Header().Set("X-Total", strconv.FormatInt(count, 10))
