@@ -5,7 +5,6 @@ import (
 	"rest-blog/controllers"
 
 	"github.com/fourcels/rest"
-	"github.com/swaggest/swgui"
 )
 
 func main() {
@@ -35,11 +34,10 @@ func main() {
 	comment.DELETE("/:id", controllers.DeleteComment())
 
 	// Swagger UI endpoint at /docs.
-	s.Docs("/docs", swgui.Config{
-		SettingsUI: map[string]string{
-			"persistAuthorization": "true",
-		},
-	})
+	s.Docs("/docs", map[string]any{
+		"persistAuthorization": true,
+	},
+	)
 
 	// Start server.
 	log.Println("http://localhost:1323/docs")
